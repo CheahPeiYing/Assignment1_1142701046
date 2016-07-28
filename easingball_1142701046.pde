@@ -1,5 +1,7 @@
 float x; 
 float y;
+float x2;
+float y2;
 
 //set up of background 
 void setup() {
