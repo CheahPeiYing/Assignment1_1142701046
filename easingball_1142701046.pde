@@ -1,5 +1,5 @@
-float x; 
-float y;
+float x; //declare x
+float y; //declare y
 
 //set up of background 
 void setup() {
@@ -11,17 +11,23 @@ void draw() {
  
   background(255,155,155); //bg color
   
-  //rectangle bg
+  //two colors rectangle bg
   if (mouseX < 400) {
     fill (104,100,167);
     rect(0, 0, 400, 400); // left
+    } 
     
-  } else {
+    else {
     fill(182,178,255);
     rect(400, 0, 800, 400); // right   
   }
+   
+  ellipse(x, y, 70,70); //easing ball
+  fill(255);
+  ellipse(mouseX-10,mouseY-10,30,30); //smaller cursor ball 
   
-  float easing = 0.10; //easing speed
+  //normal easing speed with no key
+  float easing = 0.03; //easing speed 1
   float targetX = mouseX; 
   float dx = targetX - x;
   x += dx * easing;
@@ -30,9 +36,31 @@ void draw() {
   float dy = targetY - y;
   y += dy * easing;
   
-  ellipse(x, y, 70,70); //easing ball
-  fill(255);
-  ellipse(mouseX-10,mouseY-10,30,30); //smaller ball 
+  //faster easing speed when '1' is pressed
+  if ((keyPressed == true) && (key == '1')){
+
+  float easing2 = 0.05; //easing speed 2
+  float targetX2 = mouseX; 
+  float dx2 = targetX2 - x;
+  x += dx2 * easing2;
+  
+  float targetY2 = mouseY;
+  float dy2 = targetY2 - y;
+  y += dy2 * easing2;
+}
+
+//fastest easing speed when '2' is pressed
+else if ((keyPressed == true) && (key == '2')) {
+  
+  float easing3 = 0.15; //easing speed 3
+  float targetX3 = mouseX; 
+  float dx3 = targetX3 - x;
+  x += dx3 * easing3;
+  
+  float targetY3 = mouseY;
+  float dy3 = targetY3 - y;
+  y += dy3 * easing3;
+}
 
 //mouse press, ball turns black and bigger
 if (mousePressed==true) {
@@ -48,8 +76,8 @@ noStroke();
 
 }
 
-//if 'A' is pressed, blue square appears on right screen
- if ((keyPressed == true) && (key == 'A')){
+//if 'a' is pressed, blue square appears on right screen
+ if ((keyPressed == true) && (key == 'a')){
  fill(140,0,255);
  rect(600,200,100,100);
  }
@@ -91,6 +119,4 @@ void keyPressed() {
 void keyReleased() {
   line = false;
 }
-
-
 
