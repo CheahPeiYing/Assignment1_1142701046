@@ -1,16 +1,48 @@
+import controlP5.*;
+ControlP5 cp5; //initiate controlp5
+
+ColorPicker cp; //colorpicker
+
+Textarea myTextarea; //forframerate
+
+Println console; //console
+
 float x; //declare x
 float y; //declare y
 
 //set up of background 
 void setup() {
   size(800,400); 
-  cursor (MOVE); //move cursor CURSORICON
+  cursor (ARROW); //move cursor CURSORICON
+  frameRate(90);
+  
+  cp5 = new ControlP5(this); //PICKER
+  cp = cp5.addColorPicker("picker")
+          .setPosition(60, 300)
+          .setColorValue(color(0, 0, 0, 0));
+          
+  cp5.addFrameRate().setInterval(10).setPosition(0,height - 10); //showframerate 
+  
+    myTextarea = cp5.addTextarea("txt") 
+                  .setPosition(60, 200)
+                  .setSize(100, 80)
+                  .setFont(createFont("", 12))
+                  .setLineHeight(10)
+                  .setColor(color(200))
+                  .setColorBackground(color(100))
+                  .setColorForeground(color(200,100));
+  ;
+
+  console = cp5.addConsole(myTextarea);
+           
 }
+
+
 
 void draw() { 
  
-  background(255,155,155); //bg color
-  
+   background(cp.getColorValue()); //colorchange
+
   //two colors rectangle bg
   if (mouseX < 400) {
     fill (104,100,167);
@@ -66,6 +98,7 @@ else if ((keyPressed == true) && (key == '2')) {
 if (mousePressed==true) {
 fill(0);
 ellipse(x,y,100,100);
+ println(frameCount);
 }
 
 //ball stays the same
@@ -99,7 +132,10 @@ if (key == CODED) {
     }
   }
   loop(); //loop draw
-}
+  }
+
+
+
 
 //if mouse is dragged, small ball turns rainbow colored
 void mouseDragged() {
@@ -120,3 +156,4 @@ void keyReleased() {
   line = false;
 }
 
+ 
