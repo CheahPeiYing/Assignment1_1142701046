@@ -10,6 +10,12 @@ Println console; //console
 float x; //declare x
 float y; //declare y
 
+ControlP5 cp5Knob;
+int ballValue=50;
+int cursorballvalue=100;
+
+Knob myKnob;
+
 //set up of background 
 void setup() {
   size(800,400); 
@@ -34,7 +40,29 @@ void setup() {
   ;
 
   console = cp5.addConsole(myTextarea);
+   
+    cp5Knob = new ControlP5(this);
+  myKnob = cp5.addKnob("ballValue")
+               .setRange(0,255)
+               .setValue(50)
+               .setPosition(210,210)
+               .setRadius(30)
+              
+               .setTickMarkLength(4)
+               .snapToTickMarks(true)
+               .setColorForeground(color(255))
+               .setColorBackground(color(24, 75, 61))
+               .setColorActive(color(255))
+               .setDragDirection(Knob.HORIZONTAL);    
            
+    cp5 = new ControlP5(this);
+  
+  // add a horizontal sliders, the value of this slider will be linked
+  // to variable 'sliderValue' 
+  cp5.addSlider("cursorballvalue") //slider
+     .setPosition(90,370)
+     .setRange(0,255)
+     ;
 }
 
 
@@ -54,9 +82,11 @@ void draw() {
     rect(400, 0, 800, 400); // right   
   }
    
+  fill(ballValue); //knobvalue
   ellipse(x, y, 70,70); //easing ball
-  fill(255);
+  fill(cursorballvalue,0,20); //cursorballvalue slider
   ellipse(mouseX-10,mouseY-10,30,30); //smaller cursor ball 
+ 
   
   //normal easing speed with no key
   float easing = 0.03; //easing speed 1
@@ -81,6 +111,8 @@ void draw() {
   y += dy2 * easing2;
 }
 
+
+
 //fastest easing speed when '2' is pressed
 else if ((keyPressed == true) && (key == '2')) {
   
@@ -103,7 +135,7 @@ ellipse(x,y,100,100);
 
 //ball stays the same
 else {
-fill(255);
+fill(ballValue);
 ellipse(x,y,70,70);
 noStroke();
 
@@ -156,4 +188,7 @@ void keyReleased() {
   line = false;
 }
 
- 
+
+
+
+
